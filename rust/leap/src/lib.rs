@@ -1,5 +1,7 @@
 pub fn is_leap_year(year: i32) -> bool {
-    // Wanted to check out closures
+    // h/t to Andrew for kicking off this idea
     let is_divisible_by = |num: i32| -> bool { year % num == 0 };
-    return is_divisible_by(4) && (!is_divisible_by(100) || is_divisible_by(400));
+    return if is_divisible_by(400) { true }
+        else if is_divisible_by(100) { false }
+        else { is_divisible_by(4) };
 }
