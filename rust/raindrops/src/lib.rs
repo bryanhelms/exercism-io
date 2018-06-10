@@ -1,10 +1,10 @@
 pub fn raindrops(n: usize) -> String {
+    let sounds = [(3, "Pling"), (5, "Plang"), (7, "Plong")];
     let check_drops = | num_drops: usize | -> bool { n % num_drops == 0 };
-    let mut sound = String::new();
-    if check_drops(3) { sound.push_str("Pling"); }
-    if check_drops(5) { sound.push_str("Plang"); }
-    if check_drops(7) { sound.push_str("Plong"); }
-    if sound.is_empty() { sound = n.to_string(); }
+    let mut measured_sound = String::new();
 
-    return sound;
+    for &(drops, sound) in sounds.iter() {
+        if check_drops(drops) { measured_sound.push_str(sound); }
+    }
+    return if measured_sound.is_empty() { n.to_string() } else { measured_sound };
 }
