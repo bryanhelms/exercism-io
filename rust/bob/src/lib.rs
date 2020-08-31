@@ -14,7 +14,7 @@ fn analyze_message(message: &str) -> (bool, bool, bool) {
         let is_empty = message.trim().is_empty();
         let is_yelled = message.chars().any(|c| c.is_alphabetic())
             && message.chars().all(|c| c.is_uppercase() || !c.is_alphabetic());
-        let is_question = message.trim_right().chars().last() == Some('?');
+        let is_question = message.trim_end().chars().last() == Some('?');
 
         (is_empty, is_yelled, is_question)
     }
