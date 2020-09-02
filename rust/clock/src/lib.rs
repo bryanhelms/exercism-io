@@ -29,7 +29,14 @@ impl Clock {
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
-        unimplemented!("Add {} minutes to existing Clock time", minutes);
+        let calculated = Self::calc_minutes(minutes + self.minutes);
+        let mut adjusted_hours = self.hours + calculated.0;
+        adjusted_hours = if adjusted_hours > 0 { adjusted_hours } else { (adjusted_hours % 24) + 24 };
+
+        Clock {
+            hours: adjusted_hours % 24,
+            minutes: calculated.1
+        }
     }
 }
 
