@@ -8,14 +8,24 @@ pub struct Clock {
 
 impl Clock {
     pub fn new(hours: i32, minutes: i32) -> Clock {
-        let minutes_quotient = minutes / 60;
-        let minutes_remainder = minutes % 60;
-        let adjusted_hours = (if hours > 0 { hours } else { (hours % 24) + 24 }) + minutes_quotient;
+        let calculated = Self::calc_minutes(minutes);
+        let mut adjusted_hours = hours + calculated.0;
+        adjusted_hours = if adjusted_hours > 0 { adjusted_hours } else { (adjusted_hours % 24) + 24 };
         
         Clock { 
             hours: adjusted_hours % 24, 
-            minutes: minutes_remainder 
+            minutes: calculated.1 
         }
+    }
+
+    fn calc_minutes(minutes: i32) -> (i32, i32) {
+        let mut minutes_quotient = minutes / 60;
+        let mut minutes_remainder = minutes % 60;
+        if minutes_remainder < 0 {
+            minutes_quotient += -1;
+            minutes_remainder += 60;
+        }
+        (minutes_quotient, minutes_remainder)
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
