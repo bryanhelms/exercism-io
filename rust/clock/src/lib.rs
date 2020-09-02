@@ -8,17 +8,18 @@ pub struct Clock {
 
 impl Clock {
     pub fn new(hours: i32, minutes: i32) -> Clock {
+        let minutes_quotient = minutes / 60;
+        let minutes_remainder = minutes % 60;
+        
         Clock { 
-            hours: hours % 24, 
-            minutes: minutes 
+            hours: (hours + minutes_quotient) % 24, 
+            minutes: minutes_remainder 
         }
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
         unimplemented!("Add {} minutes to existing Clock time", minutes);
     }
-
-    
 }
 
 impl fmt::Display for Clock {
