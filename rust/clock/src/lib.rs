@@ -10,10 +10,10 @@ impl Clock {
     pub fn new(hours: i32, minutes: i32) -> Clock {
         let minutes_quotient = minutes / 60;
         let minutes_remainder = minutes % 60;
-        let adjusted_hours = if hours > 0 { hours } else { (hours % 24) + 24 };
+        let adjusted_hours = (if hours > 0 { hours } else { (hours % 24) + 24 }) + minutes_quotient;
         
         Clock { 
-            hours: (adjusted_hours + minutes_quotient) % 24, 
+            hours: adjusted_hours % 24, 
             minutes: minutes_remainder 
         }
     }
